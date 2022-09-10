@@ -54,4 +54,4 @@ La pagina web permette inoltre di avere un overview sulla sitazione meteo mostra
 Per l'interazione in locale con l'utente sono usati un pulsante, un rotary encoder ed uno schermo oled che permettono di avviare un irrigazione oppure di settarne una giornaliera o setttimanale
 
 #Fritz stazione meteo
-![alt text](https://github.com/LeonardoMonchieri/PIOF/Immagini/StazioneMeteo_bb?raw=true)
+![alt text](https://github.com/LeonardoMonchieri/PIOF/blob/Immagini/StazioneMeteo_bb?raw=true)
