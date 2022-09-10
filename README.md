@@ -7,16 +7,23 @@ Un progettto che mediante l'utilizzo di due ESP-8266 permette la gestione intell
 - Sensore di temperatura e umiditá DH11
 - Sensore di rilevamento pioggia/neve
 - Fotoresistore 
+- Regolatore di voltaggio L7805CV3
+- Condensatore elettrolitico 33µF 160V
+- Condensatore in ceramica 100nF
+- Batteria da 9V
 - 2 Diodo 1N4007
 
 ## Controller interno
 - ESP 8266-12F
 - Schermo i2c Oled 128"x64"
-- Led Blu
+- Relé 5V
+- Pulsante
 - Led Verde
 - Encoder rotativo 
-- 2 Resistenze 10K 
-- 2 Resistenze 
+- Resistenze 220Ω
+- 2 Resistenze 10KΩ
+- Elettrovalvola 12V da 1/2"
+
 
 # Obbiettivo
 L'obbiettivo del progetto é quello di creare un sistema di gestione intelligente dell'acqua per l'irraigazione di un orto pensile attraverso le rilevazione fatte da una stazione meteo posta in corrispondenza della zona di interesse e delle impostazioni definite in locale, su un apposito controller, oppure online attraverso una web-app installata proprio sul controller.
