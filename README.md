@@ -52,3 +52,6 @@ Sulla scheda é installato il web-server che permette la comunicazione con la st
 Nella fase di setup della schedo vengono definiti i diversi comportamenti da attuare a seconda dei form ricevuti dai diversi client in modo tale da salvarle in variabili locali.
 La pagina web permette inoltre di avere un overview sulla sitazione meteo mostrando temperatura, umiditá e condizioni climatiche.
 Per l'interazione in locale con l'utente sono usati un pulsante, un rotary encoder ed uno schermo oled che permettono di avviare un irrigazione oppure di settarne una giornaliera o setttimanale
+
+#Fritz stazione meteo
+![alt text](https://github.com/LeonardoMonchieri/PIOF/Immagini/StazioneMeteo_bb?raw=true)
