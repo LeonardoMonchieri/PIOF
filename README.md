@@ -24,6 +24,9 @@ Un progettto che mediante l'utilizzo di due ESP-8266 permette la gestione intell
 - 2 Resistenze 10KΩ
 - Elettrovalvola 12V da 1/2"
 
+# Librerie utilizzate
+-
+
 
 # Obbiettivo
 L'obbiettivo del progetto é quello di creare un sistema di gestione intelligente dell'acqua per l'irraigazione di un orto pensile attraverso le rilevazione fatte da una stazione meteo posta in corrispondenza della zona di interesse e delle impostazioni definite in locale, su un apposito controller, oppure online attraverso una web-app installata proprio sul controller.
