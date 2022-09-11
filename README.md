@@ -78,8 +78,8 @@ Per l'interazione in locale con l'utente sono usati un pulsante, un rotary encod
 Queste operazioni possono essere fatte anche attraverso la paginaweb in cui é presente la funzionalitá aggiuntiva di impostare un singola irrigazione per un dato giorno ad una data ora.
 Il _controller_ si occupa inoltre di gestire l'irrigazione a seconda del meteo bloccandola quando le condizioni non la richiedono o al contrario avviandola quando necessario.
 
-#Screenshot della webpage
-
+# Screenshot della webpage
+![EmbeddedWebPage](https://user-images.githubusercontent.com/80100758/189540844-6766806b-bf1d-43cd-a6f8-cd9c628c7029.PNG)
 # Fritz stazione meteo
 ![StazioneMeteo_bb](https://user-images.githubusercontent.com/80100758/189505529-eb11b7ca-12f4-41bf-a35c-8edfaba1200a.png)
 # Fritz webServer/controllerLocale
