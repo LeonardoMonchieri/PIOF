@@ -82,7 +82,7 @@ Il _controller_ si occupa inoltre di gestire l'irrigazione a seconda del meteo b
 ![EmbeddedWebPage](https://user-images.githubusercontent.com/80100758/189540844-6766806b-bf1d-43cd-a6f8-cd9c628c7029.PNG)
 # Fritz stazione meteo
 ![StazioneMeteo_bb](https://user-images.githubusercontent.com/80100758/189505529-eb11b7ca-12f4-41bf-a35c-8edfaba1200a.png)
-# Fritz webServer/controllerLocale
+# Fritz web server/controller locale
 ![Server_bb](https://user-images.githubusercontent.com/80100758/189505564-763bce01-ac2f-4f7a-a075-e047e7184bd9.jpg)
 
 
