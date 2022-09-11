@@ -31,15 +31,16 @@ Un progettto che mediante l'utilizzo di due ESP-8266 permette la gestione intell
 - WiFiUdp
 - ESPAsyncTCP
 - ESPAsyncWebServer
-## Sesnsori e util
-- DHT  
-- TimeLib
-- List
+
 ## Utilizzo schermo Oled
 - Wire
 - Adafruit_GFX
 - Adafruit_SSD1306
 
+## Sesnsori e utils
+- DHT  
+- TimeLib
+- List
 
 
 # Obbiettivo
@@ -57,21 +58,24 @@ Per fare ció é dotata di 3 diversi sensori:
 - Sensore di umiditá DH11: questo sensore ha il compito di rilevare temperatura ed umiditá dell'ambiente circostante, comunica in modo digitale con la scheda,
 - Sensore di rilevamento pioggia/neve: permette di rilevare una precipitazione e stimarne la sua entitá,
 - Fotoresistenza: attraverso essa si puó misurare la luminositá esterna rilevando presenza di nuvole o meno.
-Questi due sensori, essendo entrambi analogici, competono per l'utilizzo dell'unico ingresso analogico della scheda pertanto vengno attiviti alternativamente per poter sfruttare la stessa porta, per evitare che una rilevazione "sporchi" la successiva sono stati utilizzati 2 diodi che permettono il passaggio della corrente solo verso il pin e non vieceversa.
+
+Questi due sensori, essendo entrambi analogici, competono per l'utilizzo dell'unico ingresso analogico della scheda pertanto vengno attiviti alternativamente per poter sfruttare la stessa porta, per evitare che la corrente di una rilevazione rischi di rovinare il sensore inattivo sono stati utilizzati 2 diodi che permettono il passaggio della corrente solo verso il pin e non vieceversa.
 La combinazione dei dati rilevati permette di identificare, con un margine di errore, le attuali condizioni meteo che sono state cosí definite:
 - Sunny: nel caso non vengano rilevate precipitazioni e non vi siano nuvole
 - Cloudy: nel caso non vengano rilevate precipitazione ma la luminusitá ambientale sia bassa
 - Rainy: nel caso vengano rilevate precipitazioni basse
 - Storm: nel caso vengano rilevate precipiatazioni alte
 - Snow: nel caso vengano rilevate precipitazione e la temperatura sia sotto lo 0 celsius
+
 Questi dati vengono comunicati al _controller_ attraverso una form HTTP, infatti la stazione é a tutti gli effetti un client agli occhi del server.
 Una volta inviati i dati si pone in stato di sleep per 30 minuti in modo da ridurre il piú possibile il consumo di batteria.
 
 # 2-Web server/Controller locale
 La scheda _controller_ svolge 3 funzioni:
-1. Gestire l'irrigazione sulla base dei segnali ricevuti dalla stazione e dalle impostazioni 
-2. Gestire il web-server per la ricezione dei segnali dalla stazione e dalla pagina web
-3. Gestire il setting delle impostazioni in locale
+1. Gestire l'irrigazione sulla base dei segnali ricevuti dalla stazione e dalle impostazioni.
+2. Gestire il web-server per la ricezione dei segnali dalla stazione e dalla pagina web.
+3. Gestire il setting delle impostazioni in locale.
+
 Sulla scheda é installato il web-server che permette la comunicazione con la stazione meteo e con i diversi utenti.
 La pagina web permette di avere un overview sulla sitazione meteo mostrando temperatura, umiditá e condizioni climatiche.
 Per l'interazione in locale con l'utente sono usati un pulsante, un rotary encoder ed uno schermo oled che permettono di avviare un irrigazione oppure di settarne una giornaliera, setttimanale o di eliminare tutte quelle in programma.
