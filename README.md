@@ -47,9 +47,9 @@ L'obbiettivo del progetto é quello di creare un sistema di gestione intelligent
 
 # Funzionamento
 Il funzionamento del progetto si sviluppa du 3 piani differenti che vengono integrati attraverso la scheda _controller_:
-1. **Controller locale**
-2. **Stazione meteo esterna**
-2. **Web-app**
+1. **Stazione meteo esterna**
+2. **Controller locale**
+3. **Web-app**
 
 # 1-Stazione meteo esterna
 La _stazione meteo esterna_ ha il compito di rilevare e identificare le attuali condizioni meteo e di comunicarle alla _scheda controller_.
@@ -67,15 +67,18 @@ La combinazione dei dati rilevati permette di identificare, con un margine di er
 Questi dati vengono comunicati al _controller_ attraverso una form HTTP, infatti la stazione é a tutti gli effetti un client agli occhi del server.
 Una volta inviati i dati si pone in stato di sleep per 30 minuti in modo da ridurre il piú possibile il consumo di batteria.
 
-# 2-Web Server
+# 2-Web server/Controller locale
 La scheda _controller_ svolge 3 funzioni:
 1. Gestire l'irrigazione sulla base dei segnali ricevuti dalla stazione e dalle impostazioni 
 2. Gestire il web-server per la ricezione dei segnali dalla stazione e dalla pagina web
 3. Gestire il setting delle impostazioni in locale
 Sulla scheda é installato il web-server che permette la comunicazione con la stazione meteo e con i diversi utenti.
-Nella fase di setup della schedo vengono definiti i diversi comportamenti da attuare a seconda dei form ricevuti dai diversi client in modo tale da salvarle in variabili locali.
-La pagina web permette inoltre di avere un overview sulla sitazione meteo mostrando temperatura, umiditá e condizioni climatiche.
-Per l'interazione in locale con l'utente sono usati un pulsante, un rotary encoder ed uno schermo oled che permettono di avviare un irrigazione oppure di settarne una giornaliera o setttimanale
+La pagina web permette di avere un overview sulla sitazione meteo mostrando temperatura, umiditá e condizioni climatiche.
+Per l'interazione in locale con l'utente sono usati un pulsante, un rotary encoder ed uno schermo oled che permettono di avviare un irrigazione oppure di settarne una giornaliera, setttimanale o di eliminare tutte quelle in programma.
+Queste operazioni possono essere fatte anche attraverso la paginaweb in cui é presente la funzionalitá aggiuntiva di impostare un singola irrigazione per un dato giorno ad una data ora.
+Il _controller_ si occupa inoltre di gestire l'irrigazione a seconda del meteo bloccandola quando le condizioni non la richiedono o al contrario avviandola quando necessario.
+
+#Screenshot della webpage
 
 # Fritz stazione meteo
 ![StazioneMeteo_bb](https://user-images.githubusercontent.com/80100758/189505529-eb11b7ca-12f4-41bf-a35c-8edfaba1200a.png)
