@@ -20,7 +20,7 @@ Un progettto che mediante l'utilizzo di due ESP-8266 permette la gestione intell
 - Pulsante
 - Led Verde
 - Encoder rotativo 
-- Resistenze 220Ω
+- Resistenze 330Ω
 - 2 Resistenze 10KΩ
 - Elettrovalvola 12V da 1/2"
 
@@ -89,4 +89,5 @@ Il _controller_ si occupa inoltre di gestire l'irrigazione a seconda del meteo b
 # Schema web server/controller locale
 ![Server_bb](https://user-images.githubusercontent.com/80100758/189505564-763bce01-ac2f-4f7a-a075-e047e7184bd9.jpg)
 
+# Link contribuiti utili al progetto
 
