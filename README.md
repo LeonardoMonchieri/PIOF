@@ -25,7 +25,21 @@ Un progettto che mediante l'utilizzo di due ESP-8266 permette la gestione intell
 - Elettrovalvola 12V da 1/2"
 
 # Librerie utilizzate
--
+
+## Connessione internet e servizi     
+- ESP8266WiFi
+- WiFiUdp
+- ESPAsyncTCP
+- ESPAsyncWebServer
+## Sesnsori e util
+- DHT  
+- TimeLib
+- List
+## Utilizzo schermo Oled
+- Wire
+- Adafruit_GFX
+- Adafruit_SSD1306
+
 
 
 # Obbiettivo
