@@ -27,7 +27,7 @@ const char* password = "T18EFRGNRM"; //"kuzXEQG3szcDHK66U6NuDDA2";   // The pass
 const int sunset = 21; //average hour of the sunset
 const int sunrise = 6; //average hour of the sunrise
 
-const int sleepTime = 300; //Sleep time in second
+const int sleepTime = 30; //Sleep time in second
 
 
 // Define NTP Client to get time
@@ -44,7 +44,7 @@ String getWeather(float t) {
   
    uint32_t beginWait = millis();
    while(!timeClient.update()) {
-    if(millis()- beginWait>= 120000)ESP.restart(); //If the wait is over 2 minutes restart the board
+    if(millis()- beginWait>= 50000) ESP.deepSleep(1); //If the wait is over 2 minutes restart the board
     timeClient.forceUpdate();
    }
 
@@ -76,7 +76,6 @@ String getWeather(float t) {
   Serial.println("TEMPERATURE=> "+String(t));
   Serial.println("LIGHT SENS=> "+ String(lightAnalogVal));
   Serial.println("RAIN SENS=> "+String(rainAnalogVal));
-
   Serial.print("TIME=>");
   Serial.print(timeClient.getHours());
   Serial.print(":");
@@ -108,8 +107,7 @@ void setup(void) {
   Serial.println();
   Serial.print("IP Address: ");
   Serial.println(WiFi.localIP());
-  
-  timeClient.begin();
+    timeClient.begin();
    
   float h = dht.readHumidity();
   float t = dht.readTemperature();
@@ -137,13 +135,13 @@ void setup(void) {
     // We now create and add parameters:
     url += "?temp=" + String(t) + "&hum=" + String(h) + "&weather=" + weather;
 
-    client.println(String("GET ") + url + " HTTP/1.1\r\n" + "Host:" + host + "\r\n" + "Connection : keep-alive\r\n\r\n" );
+   
 
     //just checks the 1st line of the server response. Could be expanded if needed.
-    while (client.available()) {
-      Serial.println(client.readStringUntil('\r'));
-      break;
-    }
+    do{
+      client.println(String("GET ") + url + " HTTP/1.1\r\n" + "Host:" + host + "\r\n" + "Connection : keep-alive\r\n\r\n" );
+      Serial.println("ESP Sending");
+    }while(!client.readStringUntil('\n'));
 
   } //end client connection if else
   Serial.println("ESP sleep");
