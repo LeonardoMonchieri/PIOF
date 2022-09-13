@@ -41,6 +41,7 @@ Un progettto che mediante l'utilizzo di due ESP-8266 permette la gestione intell
 - DHT  
 - TimeLib
 - List
+- NTPClient
 
 
 # Obbiettivo
@@ -90,4 +91,9 @@ Il _controller_ si occupa inoltre di gestire l'irrigazione a seconda del meteo b
 ![Server_bb](https://user-images.githubusercontent.com/80100758/189505564-763bce01-ac2f-4f7a-a075-e047e7184bd9.jpg)
 
 # Link contribuiti utili al progetto
+
+-https://www.thingiverse.com/thing:3909896 base per il remix del contenitore della stazione meteo
+-https://www.thingiverse.com/thing:336319 base per il remix del porta batteria
+
+
 
