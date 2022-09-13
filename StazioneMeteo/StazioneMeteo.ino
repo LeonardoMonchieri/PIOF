@@ -41,8 +41,10 @@ DHT dht(dht_dpin, DHTTYPE);
 
 //Function to approximate the weather from temperature, ligth and rain value 
 String getWeather(float t) {
-
+  
+   uint32_t beginWait = millis();
    while(!timeClient.update()) {
+    if(millis()- beginWait>= 120000)ESP.restart(); //If the wait is over 2 minutes restart the board
     timeClient.forceUpdate();
    }
 
@@ -75,7 +77,7 @@ String getWeather(float t) {
   Serial.println("LIGHT SENS=> "+ String(lightAnalogVal));
   Serial.println("RAIN SENS=> "+String(rainAnalogVal));
 
-  Serial.println("TIME=>");
+  Serial.print("TIME=>");
   Serial.print(timeClient.getHours());
   Serial.print(":");
   Serial.print(timeClient.getMinutes());
@@ -90,6 +92,7 @@ String getWeather(float t) {
 
 void setup(void) {
   Serial.begin(9600);
+  Serial.println("");
   
   dht.begin();
   pinMode(anag_in, INPUT);
@@ -110,7 +113,13 @@ void setup(void) {
    
   float h = dht.readHumidity();
   float t = dht.readTemperature();
+  
+  Serial.println("**TESTING**");
+  Serial.println("HUMIDITY=>"+String(h));
+  
   String weather = getWeather(t); 
+
+ 
 
   Serial.print(">>> Connecting to host: ");
   Serial.println(host);
