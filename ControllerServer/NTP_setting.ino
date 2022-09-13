@@ -21,6 +21,7 @@ time_t getNtpTime()
   sendNTPpacket(ntpServerIP);
   uint32_t beginWait = millis();
   while (true) {
+    if(millis() - beginWait>= 120000)ESP.restart(); //If the wait is over 2 minutes restart the board
     int size = Udp.parsePacket();
     if (size >= NTP_PACKET_SIZE) {
       Serial.println("Receive NTP Response");
