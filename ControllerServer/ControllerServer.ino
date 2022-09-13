@@ -286,27 +286,28 @@ void setup() {
 
   server.on("/update", HTTP_GET, [] (AsyncWebServerRequest * request) {
     Serial.println("ESP UPDATE");
-    if (request->hasParam("temp")) {
+    
+      AsyncWebParameter* rainMsg = request->getParam("weather");
       AsyncWebParameter* tempMsg = request->getParam("temp");
+      AsyncWebParameter* humMsg = request->getParam("hum");
+    
+      w = rainMsg->value().c_str();
       String temp = tempMsg->value().c_str();
+      String hum = humMsg->value().c_str();
+    
       t = temp.toFloat();
+      h = hum.toInt();
+      
+    
       Serial.print("Temp: ");
       Serial.println(t);
-    }
-    if (request->hasParam("hum")) {
-      AsyncWebParameter* humMsg = request->getParam("hum");
-      String hum = humMsg->value().c_str();
-      h = hum.toInt();
       Serial.print("Humidity: ");
       Serial.println(h);
-    }
-    if (request->hasParam("weather")) {
-      AsyncWebParameter* rainMsg = request->getParam("weather");
-      w = rainMsg->value().c_str();
-       Serial.print("Weather: ");
+      Serial.print("Weather: ");
       Serial.println(w);
+       
       if (w != "sunny") last_raining = now();
-    }
+    
     request->send(200, "text/html", "receved");
   });
   server.onNotFound(notFound);
