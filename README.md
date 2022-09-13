@@ -7,7 +7,7 @@ Un progettto che mediante l'utilizzo di due ESP-8266 permette la gestione intell
 - Sensore di temperatura e umiditá DH11
 - Sensore di rilevamento pioggia/neve
 - Fotoresistore 
-- Regolatore di voltaggio L7805CV3
+- Regolatore di tensione L7805CV3
 - Condensatore elettrolitico 33µF 160V
 - Condensatore in ceramica 100nF
 - Batteria da 9V
