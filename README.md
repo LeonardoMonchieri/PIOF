@@ -92,8 +92,8 @@ Il _controller_ si occupa inoltre di gestire l'irrigazione a seconda del meteo b
 
 # Link contribuiti utili al progetto
 
--https://www.thingiverse.com/thing:3909896 base per il remix del contenitore della stazione meteo
--https://www.thingiverse.com/thing:336319 base per il remix del porta batteria
+- https://www.thingiverse.com/thing:3909896 base per il remix del contenitore della stazione meteo
+- https://www.thingiverse.com/thing:336319 base per il remix del porta batteria
 
 
 
