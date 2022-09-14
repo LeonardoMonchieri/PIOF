@@ -185,11 +185,6 @@ void setup() {
   pinMode(watering_control, OUTPUT);
 
   pinMode(button, INPUT);
-  pinMode(encoder, INPUT_PULLUP);
-
-
-  //Led on
-  digitalWrite(led_on, HIGH);
   
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3D for 128x64
     Serial.println(F("SSD1306 allocation failed"));
@@ -211,6 +206,9 @@ void setup() {
   Udp.begin(localPort);
   setSyncProvider(getNtpTime);
   setSyncInterval(300);
+  
+  //Led on
+  digitalWrite(led_on, HIGH);
 
   // Send web page with input fields to client
   server.on("/", HTTP_GET, [](AsyncWebServerRequest * request) {
