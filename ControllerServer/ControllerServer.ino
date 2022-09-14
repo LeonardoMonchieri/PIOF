@@ -28,8 +28,8 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
 //CONST
 
-const char* ssid = "FASTWEB-E20FA7";  // The SSID (name) of the Wi-Fi network you want to connect to
-const char* password = "T18EFRGNRM";  // The password of the Wi-Fi network
+const char* ssid PROGMEM= "FASTWEB-E20FA7";  // The SSID (name) of the Wi-Fi network you want to connect to
+const char* password PROGMEM= "T18EFRGNRM";  // The password of the Wi-Fi network
 
 //VAR
 bool startNow = false;  //Start now watering flag
@@ -114,14 +114,14 @@ void printAllarm() {
 
   if (daily || weekly || (!allarms_list.isEmpty() )) {
     //time_t minAllarm = getMinAllarm();
-    display.println( "Next watering:" );
+    display.println( F("Next watering:") );
     display.setCursor(20, 55);
     display.println( timeToString(getMinAllarm()) );
   }
   else {
-    display.println("No watering");
+    display.println(F("No watering"));
     display.setCursor(30, 55);
-    display.println("in program");
+    display.println(F("in program"));
   }
 
   display.display();
@@ -136,12 +136,12 @@ void printSens() {
   display.print(t);
   display.setTextSize(1);
   display.print((char)247);
-  display.print("C");
+  display.print(F("C"));
   display.setCursor(90, 10);
   display.setTextSize(2);
   display.print(h);
   display.setTextSize(1);
-  display.print("%");
+  display.print(F("%"));
 }
 
 //Start watering if temperature is over 0 deg celsius,isn't raining  or in the last 12h it has rained
@@ -151,9 +151,9 @@ void start_watering() {
     display.clearDisplay();
     display.setTextSize(2);
     display.setCursor(15, 32);
-    if(t<0) display.println( "TOO COLD" );
-    if(w!="sunny" && w!="cloudy") display.println( "IS RAINING" );
-    if(now()-last_raining >= 43200) display.println( "IT RAINED 2 AGO" );
+    if(t<0) display.println(F("TOO COLD") );
+    if(w!="sunny" && w!="cloudy") display.println( F("IS RAINING") );
+    if(now()-last_raining >= 43200) display.println( F("IT RAINED 2 AGO") );
     
     display.display();
     delay(5000);
@@ -164,7 +164,7 @@ void start_watering() {
   display.clearDisplay();
   display.setTextSize(2);
   display.setCursor(15, 32);
-  display.println( "WATERING" );
+  display.println( F("WATERING") );
   display.display();
   delay(60000);
   digitalWrite(watering_control, LOW);
@@ -173,13 +173,13 @@ void start_watering() {
 }
 
 void notFound(AsyncWebServerRequest *request) {
-  request->send(404, "text/plain", "Not found");
+  request->send(404, F("text/plain"), F("Not found"));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void setup() {
   Serial.begin(115200);
-  Serial.println("START");
+  
 
   pinMode(led_on, OUTPUT);
   pinMode(watering_control, OUTPUT);
@@ -195,21 +195,23 @@ void setup() {
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
   if (WiFi.waitForConnectResult() != WL_CONNECTED) {
-    Serial.println("WiFi Failed!");
+    Serial.println(F("WiFi Failed!"));
     return;
   }
   Serial.println();
-  Serial.print("IP Address: ");
+  Serial.print(F("IP Address: "));
   Serial.println(WiFi.localIP());
 
 
   Udp.begin(localPort);
   setSyncProvider(getNtpTime);
-  setSyncInterval(300);
+  setSyncInterval(30000);
   
   //Led on
+  Serial.println("START");
   digitalWrite(led_on, HIGH);
 
+ 
   // Send web page with input fields to client
   server.on("/", HTTP_GET, [](AsyncWebServerRequest * request) {
     request->send(200, "text/html", getPage());
@@ -275,7 +277,7 @@ void setup() {
       
     }
     else {
-      Serial.println("No message");
+      Serial.println(F("No message"));
       inputMessage = "No message sent";
       inputParam = "none";
       request->send(200, "text/html", getPage());
@@ -283,28 +285,27 @@ void setup() {
   });
 
   server.on("/update", HTTP_GET, [] (AsyncWebServerRequest * request) {
-    Serial.println("ESP UPDATE");
-    
-      AsyncWebParameter* rainMsg = request->getParam("weather");
+  
       AsyncWebParameter* tempMsg = request->getParam("temp");
+      AsyncWebParameter* rainMsg = request->getParam("weather");
       AsyncWebParameter* humMsg = request->getParam("hum");
-    
+      
       w = rainMsg->value().c_str();
-      String temp = tempMsg->value().c_str();
+      String temp = tempMsg->value().c_str(); 
       String hum = humMsg->value().c_str();
-    
+
       t = temp.toFloat();
       h = hum.toInt();
-      
-    
-      Serial.print("Temp: ");
+
+      Serial.println(F("ESP UPDATE"));
+      Serial.print(F("Temp: "));
       Serial.println(t);
-      Serial.print("Humidity: ");
+      Serial.print(F("Humidity: "));
       Serial.println(h);
-      Serial.print("Weather: ");
+      Serial.print(F("Weather: "));
       Serial.println(w);
-       
-      if (w != "sunny") last_raining = now();
+
+      //if (w != "sunny") last_raining = now();
     
     request->send(200, "text/html", "receved");
   });

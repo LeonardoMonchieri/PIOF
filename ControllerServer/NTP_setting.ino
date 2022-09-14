@@ -1,10 +1,10 @@
 //NTP Server
-static const char ntpServerName[] = "us.pool.ntp.org";
-const int timeZone = 2;     // Central European Time
+static const char ntpServerName[] = "europe.pool.ntp.org";
+const int timeZone PROGMEM= 2;     // Central European Time
 
 
 //NTP setting
-const int NTP_PACKET_SIZE = 48; // NTP time is in the first 48 bytes of message
+const int NTP_PACKET_SIZE PROGMEM= 48; // NTP time is in the first 48 bytes of message
 byte packetBuffer[NTP_PACKET_SIZE]; //buffer to hold incoming & outgoing packets
 
 time_t getNtpTime()
@@ -12,19 +12,19 @@ time_t getNtpTime()
   IPAddress ntpServerIP; // NTP server's ip address
 
   while (Udp.parsePacket() > 0) ; // discard any previously received packets
-  Serial.println("Transmit NTP Request");
+  Serial.println(F("Transmit NTP Request"));
   // get a random server from the pool
   WiFi.hostByName(ntpServerName, ntpServerIP);
   Serial.print(ntpServerName);
-  Serial.print(": ");
+  Serial.print(F(": "));
   Serial.println(ntpServerIP);
   sendNTPpacket(ntpServerIP);
   uint32_t beginWait = millis();
   while (true) {
-    if(millis() - beginWait>= 120000)ESP.restart(); //If the wait is over 2 minutes restart the board
+    
     int size = Udp.parsePacket();
     if (size >= NTP_PACKET_SIZE) {
-      Serial.println("Receive NTP Response");
+      Serial.println(F("Receive NTP Response"));
       Udp.read(packetBuffer, NTP_PACKET_SIZE);  // read packet into the buffer
       unsigned long secsSince1900;
       // convert four bytes starting at location 40 to a long integer
@@ -34,17 +34,7 @@ time_t getNtpTime()
       secsSince1900 |= (unsigned long)packetBuffer[43];
       return secsSince1900 - 2208988800UL + timeZone * SECS_PER_HOUR;
     }
-     display.clearDisplay();
-     display.setTextSize(2);
-     display.setTextColor(WHITE);
-     display.setCursor(0, 10);
-     
-     display.print(".");
-     display.clearDisplay();
-     display.print("..");
-     display.clearDisplay();
-     display.print("...");
-
+    if(millis() - beginWait>= 10000) break;  //If the wait is over 2 minutes restart the board
   }
   Serial.println("No NTP Response :-(");
   return 0; // return 0 if unable to get the time

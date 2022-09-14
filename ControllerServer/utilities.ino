@@ -1,7 +1,7 @@
 
 //Get minDate from all the setted allarm (periodic or inside the list)
 time_t getMinAllarm(void){
-  time_t minAllarm = fromString("2100-01-01 00:00");
+  time_t minAllarm = fromString(F("2100-01-01 00:00"));
   if (!allarms_list.isEmpty()) {
     if (allarms_list.getValue(allarms_list.getSize()-1) < minAllarm) {
       minAllarm = allarms_list.getValue(allarms_list.getSize()-1);

@@ -10,22 +10,22 @@ void dispalyOption() {
   display.setTextColor(WHITE);
 
   display.setCursor(10, 0);
-  display.println("Set mod:");
+  display.println(F("Set mod:"));
 
   display.setTextSize(1);
   display.setCursor(10, 16);
-  display.println("Weekly");
+  display.println(F("Weekly"));
   display.setCursor(10, 26);
-  display.println("Daily");
+  display.println(F("Daily"));
   display.setCursor(10, 36);
-  display.println("Start now");
+  display.println(F("Start now"));
   display.setCursor(10, 46);
-  display.println("Clear Allarm");
+  display.println(F("Clear Allarm"));
   display.setCursor(10, 56);
-  display.println("Back");
+  display.println(F("Back"));
 
   display.setCursor(2, (menuCount * 10) + 6);
-  display.println(">");
+  display.println(F(">"));
   display.display();
   return;
 }
@@ -39,44 +39,44 @@ int setWeekly() {
   display.clearDisplay();
   display.setTextSize(2);
   display.setTextColor(WHITE);
-  display.print("MON");
+  display.print(F("MON"));
   while (1) {
     encoderValue = analogRead(encoder);
     d = map(encoderValue, 0, 1020, 1, 7);
     switch (d) {
       case 1:
-        string_d = "SUNDAY";
+        string_d = F("SUNDAY");
         break;
 
       case 2:
-        string_d = "MONDAY";
+        string_d = F("MONDAY");
         break;
 
       case 3:
-        string_d = "TUESDAY";
+        string_d = F("TUESDAY");
         break;
 
       case 4:
-        string_d = "WEDNESDAY";
+        string_d = F("WEDNESDAY");
         break;
 
       case 5:
-        string_d = "THURSDAY";
+        string_d = F("THURSDAY");
         break;
 
       case 6:
-        string_d = "FRIDAY";
+        string_d = F("FRIDAY");
         break;
 
       case 7:
-        string_d = "SATURDAY";
+        string_d = F("SATURDAY");
         break;
 
 
     }
     display.clearDisplay();
     display.setCursor(20, 10);
-    display.print("Day:");
+    display.print(F("Day:"));
     display.setCursor(20, 32);
     display.print(string_d);
     display.display();
@@ -100,7 +100,7 @@ int setHour() {
     hr = map(encoderValue, 0, 1020, 0, 23);
     display.clearDisplay();
     display.setCursor(40, 10);
-    display.print("Hour:");
+    display.print(F("Hour:"));
     display.setCursor(40, 32);
     display.print(String(hr) + ":00");
     display.display();
@@ -121,7 +121,7 @@ int setMinute(int hr) {
     mnt = 5 * map(encoderValue, 0, 1020, 0, 11);
     display.clearDisplay();
     display.setCursor(40, 10);
-    display.print("Hour:");
+    display.print(F("Hour:"));
     display.setCursor(40, 32);
     display.print(String(hr) + ":" + String(mnt));
     display.display();

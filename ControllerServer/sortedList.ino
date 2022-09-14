@@ -2,9 +2,9 @@
 //Print the list of the date for testing purpose
 void printTList(List<time_t> l) {
   for (int i = 0; i <l.getSize(); i++) {
-    Serial.print("element ");
+    Serial.print(F("element "));
     Serial.print(i);
-    Serial.print(" => ");
+    Serial.print(F(" => "));
     Serial.println(timeToString(l.getValue(i)));
   }
   return;
