@@ -94,7 +94,6 @@ void setup(void) {
   Serial.println("");
   
   dht.begin();
-  pinMode(anag_in, INPUT);
   pinMode(rain_dpout, OUTPUT);
   pinMode(light_dpout, OUTPUT);
 
