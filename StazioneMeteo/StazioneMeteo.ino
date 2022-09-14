@@ -17,8 +17,8 @@
 //CONST
 
 //Host
-const char* host = "192.168.1.99";
-const int httpPort = 80;
+const char* host PROGMEM= "192.168.1.99";
+const int httpPort PROGMEM= 80;
 
 //WiFi credential
 const char* ssid PROGMEM = "FASTWEB-E20FA7"; //"TIM-64269797";     // The SSID (name) of the Wi-Fi network you want to connect to
@@ -144,7 +144,7 @@ void setup(void) {
       client.println(String("GET ") + url + " HTTP/1.1\r\n" + "Host:" + host + "\r\n" + "Connection : keep-alive\r\n\r\n" );
       Serial.print(F("..."));
     } while (!client.readStringUntil('\n'));
-    Serial.println("\n");
+    Serial.println(F("\n"));
 
   } //end client connection if else
   Serial.println(F("ESP sleep"));
