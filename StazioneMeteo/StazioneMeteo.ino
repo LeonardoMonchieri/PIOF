@@ -16,18 +16,19 @@
 
 //CONST
 
-//Host 
+//Host
 const char* host = "192.168.1.99";
 const int httpPort = 80;
 
 //WiFi credential
-const char* ssid = "FASTWEB-E20FA7";  //"TIM-64269797";     // The SSID (name) of the Wi-Fi network you want to connect to
-const char* password = "T18EFRGNRM"; //"kuzXEQG3szcDHK66U6NuDDA2";   // The password of the Wi-Fi network
+const char* ssid PROGMEM = "FASTWEB-E20FA7"; //"TIM-64269797";     // The SSID (name) of the Wi-Fi network you want to connect to
+const char* password PROGMEM = "T18EFRGNRM"; //"kuzXEQG3szcDHK66U6NuDDA2";   // The password of the Wi-Fi network
 
-const int sunset = 21; //average hour of the sunset
-const int sunrise = 6; //average hour of the sunrise
+const int sunset PROGMEM = 21; //average hour of the sunset
+const int sunrise PROGMEM = 6; //average hour of the sunrise
 
-const int sleepTime = 30; //Sleep time in second
+const int sleepTime PROGMEM = 300; //Sleep time in second
+
 
 
 // Define NTP Client to get time
@@ -39,50 +40,51 @@ WiFiClient client;
 DHT dht(dht_dpin, DHTTYPE);
 
 
-//Function to approximate the weather from temperature, ligth and rain value 
+//Function to approximate the weather from temperature, ligth and rain value
 String getWeather(float t) {
-  
-   uint32_t beginWait = millis();
-   while(!timeClient.update()) {
-    if(millis()- beginWait>= 50000) ESP.deepSleep(1); //If the wait is over 2 minutes restart the board
+
+  uint32_t beginWait = millis();
+  while (!timeClient.update()) {
+    if (millis() - beginWait >= 50000) ESP.deepSleep(1); //If the wait is over 2 minutes restart the board
     timeClient.forceUpdate();
-   }
+  }
 
   String w = "";
-  
+
   digitalWrite(rain_dpout, HIGH);
   delay(100);
   int rainAnalogVal = analogRead(anag_in);
-  
+
   digitalWrite(rain_dpout, LOW);
-  
+
   digitalWrite(light_dpout, HIGH);
   delay(100);
   int lightAnalogVal = analogRead(anag_in);
-  
+
   digitalWrite(light_dpout, LOW);
 
-  
   if (rainAnalogVal > 680) {
-    if (lightAnalogVal <= 700 && (timeClient.getHours() >sunrise && timeClient.getHours() <sunset) && timeClient.getHours()!=00 ) w = "cloudy";
+    if (lightAnalogVal <= 700 && (timeClient.getHours() > sunrise && timeClient.getHours() < sunset) && timeClient.getHours() != 00 ) w = "cloudy";
     else w = "sunny";
   }
   if (rainAnalogVal <= 680 && t < 0) w = "snow";
   else if (rainAnalogVal <= 680 && rainAnalogVal > 340) w = "rainy";
   else if (rainAnalogVal <= 340) w = "storm";
-  
-  /*TESTING*/
-  Serial.println("WEATHER=> "+w);
-  Serial.println("TEMPERATURE=> "+String(t));
-  Serial.println("LIGHT SENS=> "+ String(lightAnalogVal));
-  Serial.println("RAIN SENS=> "+String(rainAnalogVal));
-  Serial.print("TIME=>");
-  Serial.print(timeClient.getHours());
-  Serial.print(":");
-  Serial.print(timeClient.getMinutes());
-  Serial.print(":");
-  Serial.println(timeClient.getSeconds());
 
+  /*TESTING*/
+  /*
+    Serial.println("WEATHER=> " + w);
+    Serial.println("TEMPERATURE=> " + String(t));
+    Serial.println("LIGHT SENS=> " + String(lightAnalogVal));
+    Serial.println("RAIN SENS=> " + String(rainAnalogVal));
+
+    Serial.print("TIME=>");
+    Serial.print(timeClient.getHours());
+    Serial.print(":");
+    Serial.print(timeClient.getMinutes());
+    Serial.print(":");
+    Serial.println(timeClient.getSeconds());
+  */
   return w;
 }
 
@@ -92,60 +94,61 @@ String getWeather(float t) {
 void setup(void) {
   Serial.begin(9600);
   Serial.println("");
-  
+
   dht.begin();
+
   pinMode(rain_dpout, OUTPUT);
   pinMode(light_dpout, OUTPUT);
 
   WiFi.begin(ssid, password);
   if (WiFi.waitForConnectResult() != WL_CONNECTED) {
-    Serial.println("WiFi Failed!");
+    Serial.println(F("WiFi Failed!"));
     return;
   }
-  Serial.println("Succesfull connection");
+  Serial.println(F("Succesfull connection"));
   Serial.println();
-  Serial.print("IP Address: ");
+  Serial.print(F("IP Address: "));
   Serial.println(WiFi.localIP());
-    timeClient.begin();
-   
+
+  timeClient.begin();
+
   float h = dht.readHumidity();
   float t = dht.readTemperature();
-  
-  Serial.println("**TESTING**");
-  Serial.println("HUMIDITY=>"+String(h));
-  
-  String weather = getWeather(t); 
 
- 
+  //Serial.println("**TESTING**");
+  //Serial.println("HUMIDITY=>" + String(h));
 
-  Serial.print(">>> Connecting to host: ");
+  String weather = getWeather(t);
+
+
+
+  Serial.print(F(">>> Connecting to host: "));
   Serial.println(host);
 
   if (!client.connect(host, httpPort)) {
-    Serial.print("Connection failed: ");
+    Serial.print(F("Connection failed: "));
     Serial.println(host);
   } else {
-    Serial.print("Connection succesfull: ");
+    Serial.print(F("Connection succesfull: "));
     Serial.println(host);
- 
+
     //the path and file to send the data to:
     String url = "/update";
-    
+
     // We now create and add parameters:
     url += "?temp=" + String(t) + "&hum=" + String(h) + "&weather=" + weather;
 
-   
-
     //just checks the 1st line of the server response. Could be expanded if needed.
-    do{
+    Serial.println(F("ESP Sending..."));
+    do {
       client.println(String("GET ") + url + " HTTP/1.1\r\n" + "Host:" + host + "\r\n" + "Connection : keep-alive\r\n\r\n" );
-      Serial.println("ESP Sending");
-    }while(!client.readStringUntil('\n'));
+      Serial.print(F("..."));
+    } while (!client.readStringUntil('\n'));
+    Serial.println("\n");
 
   } //end client connection if else
-  Serial.println("ESP sleep");
+  Serial.println(F("ESP sleep"));
   ESP.deepSleep(sleepTime * 1e6);
-
 
 }
 
