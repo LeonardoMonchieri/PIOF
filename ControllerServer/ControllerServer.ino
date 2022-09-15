@@ -205,7 +205,7 @@ void setup() {
 
   Udp.begin(localPort);
   setSyncProvider(getNtpTime);
-  setSyncInterval(30000);
+  setSyncInterval(1.8*1e6);
   
   //Led on
   Serial.println("START");
