@@ -205,7 +205,7 @@ void setup() {
 
   Udp.begin(localPort);
   setSyncProvider(getNtpTime);
-  setSyncInterval(1.8*1e6);
+  setSyncInterval(8.64*1e7); //Sync every 24h the time with NTP server
   
   //Led on
   Serial.println("START");
