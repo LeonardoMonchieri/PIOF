@@ -88,7 +88,8 @@ Il _controller_ si occupa inoltre di gestire l'irrigazione a seconda del meteo b
 # Schema stazione meteo
 ![StazioneMeteo_bb](https://user-images.githubusercontent.com/80100758/189505529-eb11b7ca-12f4-41bf-a35c-8edfaba1200a.png)
 # Schema web server/controller locale
-![Server_bb](https://user-images.githubusercontent.com/80100758/189505564-763bce01-ac2f-4f7a-a075-e047e7184bd9.jpg)
+![Server_bb](https://user-images.githubusercontent.com/80100758/190418565-f240d442-cbb5-4bf2-b6f6-2319d5504117.png)
+
 
 # Link contribuiti utili al progetto
 
